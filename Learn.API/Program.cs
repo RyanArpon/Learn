@@ -70,6 +70,7 @@ builder.Services.AddScoped<IRegionRepository, SQLRegionRepository>();
 builder.Services.AddScoped<IWalkRepository, SQLWalkRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<IImageRepository, LocalImageRepository>();
+builder.Services.AddScoped<ITopicRepository, SQLTopicRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
