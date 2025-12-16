@@ -31,19 +31,17 @@ namespace Learn.API.Controllers {
             this.logger = logger;
         }
 
-        // GET ALL REGIONS
-        // GET: https://lolcalhost:portnumber/api/regions
-        //[HttpGet]
-        ////[Authorize(Roles = "Reader")]
-        //public async Task<IActionResult> GetAll() {
-        //    // Get Data from Database - Domain Models
-        //    var regionsDomain = await topicRepository.GetAllAsync();
+        [HttpGet]
+        //[Authorize(Roles = "Reader")]
+        public async Task<IActionResult> GetAll() {
+            // Get Data from Database - Domain Models
+            var topicsDomain = await topicRepository.GetAllAsync();
 
-        //    // Return DTOs
-        //    logger.LogInformation($"Finished GetAllRegions request with data: {JsonSerializer.Serialize(regionsDomain)}");
+            // Return DTOs
+            logger.LogInformation($"Finished GetAllTopics request with data: {JsonSerializer.Serialize(topicsDomain)}");
 
-        //    return Ok(mapper.Map<List<TopicDto>>(regionsDomain));
-        //}
+            return Ok(mapper.Map<List<TopicDto>>(topicsDomain));
+        }
 
         // GET SINGLE REGION (Get Region By ID)
         // GET: https://lolcalhost:portnumber/api/regions/{id}
