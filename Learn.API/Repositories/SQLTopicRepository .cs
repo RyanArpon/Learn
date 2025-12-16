@@ -47,7 +47,8 @@ namespace Learn.API.Repositories {
                 return null;
             }
 
-            dbContext.Topics.Remove(existingTopic);
+            existingTopic.IsActive = false;
+
             await dbContext.SaveChangesAsync();
 
             return existingTopic;
