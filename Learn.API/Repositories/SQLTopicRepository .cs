@@ -19,7 +19,7 @@ namespace Learn.API.Repositories {
         }
 
         public async Task<List<Topic>> GetAllAsync() {
-            return await dbContext.Topics.ToListAsync();
+            return await dbContext.Topics.Where(x => x.IsActive).ToListAsync();
         }
 
         public async Task<Topic?> GetByIdAsync(Guid id) {
