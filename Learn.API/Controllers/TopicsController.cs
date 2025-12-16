@@ -42,7 +42,7 @@ namespace Learn.API.Controllers {
         //    // Return DTOs
         //    logger.LogInformation($"Finished GetAllRegions request with data: {JsonSerializer.Serialize(regionsDomain)}");
 
-        //    return Ok(mapper.Map<List<RegionDto>>(regionsDomain));
+        //    return Ok(mapper.Map<List<TopicDto>>(regionsDomain));
         //}
 
         // GET SINGLE REGION (Get Region By ID)
@@ -81,25 +81,23 @@ namespace Learn.API.Controllers {
             return CreatedAtAction(nameof(GetById), new { id = topicDto.Id }, topicDto);
         }
 
-        // PUT To Update New Region
-        // PUT: https://lolcalhost:portnumber/api/regions/{id}
-        //[HttpPut]
-        //[Route("{id:Guid}")]
-        //[ValidateModel]
-        ////[Authorize(Roles = "Writer")]
-        //public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateRegionRequestDto updateRegionRequestDto) {
-        //    // Map DTO to Domain Model
-        //    var regionDomainModel = mapper.Map<Region>(updateRegionRequestDto);
+        [HttpPut]
+        [Route("{id:Guid}")]
+        [ValidateModel]
+        //[Authorize(Roles = "Writer")]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateTopicRequestDto updateTopicRequestDto) {
+            // Map DTO to Domain Model
+            var topicDomainModel = mapper.Map<Topic>(updateTopicRequestDto);
 
-        //    // Check if Region exists
-        //    regionDomainModel = await topicRepository.UpdateAsync(id, regionDomainModel);
+            // Check if Region exists
+            topicDomainModel = await topicRepository.UpdateAsync(id, topicDomainModel);
 
-        //    if (regionDomainModel == null) {
-        //        return NotFound();
-        //    }
+            if (topicDomainModel == null) {
+                return NotFound();
+            }
 
-        //    return Ok(mapper.Map<RegionDto>(regionDomainModel));
-        //}
+            return Ok(mapper.Map<TopicDto>(topicDomainModel));
+        }
 
         // DELETE Region
         // DELETE: https://lolcalhost:portnumber/api/regions/{id}
@@ -108,15 +106,15 @@ namespace Learn.API.Controllers {
         ////[Authorize(Roles = "Writer,Reader")]
         //public async Task<IActionResult> Delete([FromRoute] Guid id) {
         //    // Check if Region exists
-        //    //var regionDomainModel = await dbContext.Regions.FirstOrDefaultAsync(x => x.Id == id);
-        //    var regionDomainModel = await topicRepository.DeleteAsync(id);
+        //    //var topicDomainModel = await dbContext.Regions.FirstOrDefaultAsync(x => x.Id == id);
+        //    var topicDomainModel = await topicRepository.DeleteAsync(id);
 
-        //    if (regionDomainModel == null) {
+        //    if (topicDomainModel == null) {
         //        return NotFound();
         //    }
 
         //    // Map/Convert Domain Model to DTO
-        //    var regionDto = mapper.Map<RegionDto>(regionDomainModel);
+        //    var regionDto = mapper.Map<TopicDto>(topicDomainModel);
 
         //    return Ok(regionDto);
         //}
