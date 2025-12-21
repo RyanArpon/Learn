@@ -43,24 +43,18 @@ namespace Learn.API.Controllers {
             return Ok(mapper.Map<List<TopicDto>>(topicsDomain));
         }
 
-        // GET SINGLE REGION (Get Topic By ID)
-        // GET: https://lolcalhost:portnumber/api/regions/{id}
         [HttpGet]
         [Route("{id:Guid}")]
         //[Authorize(Roles = "Reader")]
         public async Task<IActionResult> GetById(Guid id) {
-            // OPTION 1
-            // var region = dbContext.Topics.Find(id);
+            var topicDomain = await topicRepository.GetByIdAsync(id);
 
-            // OPTION 2
-            var regionDomain = await topicRepository.GetByIdAsync(id);
-
-            if (regionDomain == null) {
+            if (topicDomain == null) {
                 return NotFound();
             }
 
             // Return DTO
-            return Ok(mapper.Map<TopicDto>(regionDomain));
+            return Ok(mapper.Map<TopicDto>(topicDomain));
         }
 
         [HttpPost]

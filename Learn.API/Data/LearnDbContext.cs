@@ -17,6 +17,8 @@ namespace Learn.API.Data {
 
         public DbSet<Topic> Topics { get; set; }
 
+        public DbSet<Question> Questions { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);

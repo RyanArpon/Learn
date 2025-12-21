@@ -15,6 +15,9 @@ namespace Learn.API.Mappings {
             CreateMap<Topic, TopicDto>().ReverseMap();
             CreateMap<AddTopicRequestDto, Topic>().ReverseMap();
             CreateMap<UpdateTopicRequestDto, Topic>().ReverseMap();
+            CreateMap<Question, QuestionDto>().ReverseMap();
+            CreateMap<AddQuestionRequestDto, Question>().ReverseMap();
+            CreateMap<UpdateQuestionRequestDto, Question>().ReverseMap();
         }
     }
 }

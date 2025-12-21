@@ -12,6 +12,8 @@ namespace Learn.API.Repositories {
         }
 
         public async Task<Topic> CreateAsync(Topic topic) {
+            topic.IsActive = true;
+
             await dbContext.Topics.AddAsync(topic);
             await dbContext.SaveChangesAsync();
 
