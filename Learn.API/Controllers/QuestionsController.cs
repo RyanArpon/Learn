@@ -67,6 +67,10 @@ namespace Learn.API.Controllers {
             // Use Domain Model to create Question
             questionDomainModel = await questionRepository.CreateAsync(questionDomainModel);
 
+            if (questionDomainModel == null) {
+                return NotFound($"TopicId: {addQuestionRequestDto.TopicId} not found.");
+            }
+
             // Map/Convert Domain Model to DTO
             var questionDto = mapper.Map<QuestionDto>(questionDomainModel);
 

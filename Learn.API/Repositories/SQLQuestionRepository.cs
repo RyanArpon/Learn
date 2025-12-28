@@ -12,6 +12,12 @@ namespace Learn.API.Repositories {
         }
 
         public async Task<Question> CreateAsync(Question question) {
+            var existingTopic = await dbContext.Topics.FirstOrDefaultAsync(x => x.Id == question.TopicId);
+
+            if (existingTopic == null) {
+                return null;
+            }
+
             question.IsActive = true;
 
             await dbContext.Questions.AddAsync(question);
@@ -30,8 +36,9 @@ namespace Learn.API.Repositories {
 
         public async Task<Question?> UpdateAsync(Guid id, Question question) {
             var existingQuestion = await dbContext.Questions.FirstOrDefaultAsync(x => x.Id == id);
+            var existingTopic = await dbContext.Topics.FirstOrDefaultAsync(x => x.Id == question.Id);
 
-            if (existingQuestion == null) {
+            if (existingQuestion == null || existingTopic == null) {
                 return null;
             }
 
