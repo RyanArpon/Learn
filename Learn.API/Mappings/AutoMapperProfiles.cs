@@ -18,6 +18,9 @@ namespace Learn.API.Mappings {
             CreateMap<Question, QuestionDto>().ReverseMap();
             CreateMap<AddQuestionRequestDto, Question>().ReverseMap();
             CreateMap<UpdateQuestionRequestDto, Question>().ReverseMap();
+            CreateMap<Answer, AnswerDto>().ReverseMap();
+            CreateMap<AddAnswerRequestDto, Answer>().ReverseMap();
+            CreateMap<UpdateAnswerRequestDto, Answer>().ReverseMap();
         }
     }
 }

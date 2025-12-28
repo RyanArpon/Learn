@@ -8,16 +8,12 @@ namespace Learn.API.Data {
         }
 
         public DbSet<Difficulty> Difficulties { get; set; }
-
         public DbSet<Region> Regions { get; set; }
-
         public DbSet<Walk> Walks { get; set; }
-
         public DbSet<Image> Images { get; set; }
-
         public DbSet<Topic> Topics { get; set; }
-
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {

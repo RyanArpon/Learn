@@ -72,6 +72,7 @@ builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<IImageRepository, LocalImageRepository>();
 builder.Services.AddScoped<ITopicRepository, SQLTopicRepository>();
 builder.Services.AddScoped<IQuestionRepository, SQLQuestionRepository>();
+builder.Services.AddScoped<IAnswerRepository, SQLAnswerRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
