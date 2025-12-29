@@ -6,14 +6,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
-import { HomeComponent } from './components/search-type/home/home.component';
 import { SearchTypeComponent } from './components/search-type/search-type.component';
+import { HttpClientModule } from '@angular/common/http';
+import { TopicsComponent } from './components/topics/topics.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    TopicsComponent,
     SearchTypeComponent
   ],
   imports: [
@@ -22,7 +23,8 @@ import { SearchTypeComponent } from './components/search-type/search-type.compon
     MatButtonModule,
     MatCheckboxModule,
     MatCardModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

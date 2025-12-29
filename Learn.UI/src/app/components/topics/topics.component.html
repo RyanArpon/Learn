@@ -1,0 +1,17 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div>
+  <mat-card class="home-card">
+    <mat-card-content>
+      <h1>
+        Topics
+      </h1>
+      <hr>
+      <br>
+      <ng-container *ngFor="let topic of topics">
+        <mat-card>{{ topic.title }}</mat-card><br>
+      </ng-container>
+      <div></div>
+    </mat-card-content>
+  </mat-card>
+
+</div>
