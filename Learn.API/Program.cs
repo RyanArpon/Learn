@@ -66,10 +66,7 @@ builder.Services.AddDbContext<LearnDbContext>(options =>
 builder.Services.AddDbContext<LearnAuthDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("LearnAuthConnectionString")));
 
-builder.Services.AddScoped<IRegionRepository, SQLRegionRepository>();
-builder.Services.AddScoped<IWalkRepository, SQLWalkRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
-builder.Services.AddScoped<IImageRepository, LocalImageRepository>();
 builder.Services.AddScoped<ITopicRepository, SQLTopicRepository>();
 builder.Services.AddScoped<IQuestionRepository, SQLQuestionRepository>();
 builder.Services.AddScoped<IAnswerRepository, SQLAnswerRepository>();
@@ -117,12 +114,6 @@ app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
-    RequestPath = "/Images"
-});
 
 app.MapControllers();
 app.Run();

@@ -5,8 +5,6 @@ VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.API", "Learn.API\Learn.API.csproj", "{B2015E65-D227-49CA-A4E0-747C7C6D83DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.UI", "Learn.UI\Learn.UI.csproj", "{7654EFEC-041A-4021-A0C3-C5BA62153607}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
