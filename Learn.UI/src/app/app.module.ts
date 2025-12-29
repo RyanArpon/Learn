@@ -6,16 +6,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
-import { SearchTypeComponent } from './components/search-type/search-type.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TopicsComponent } from './components/topics/topics.component';
+import { QuestionsComponent } from './components/questions/questions.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TopicsComponent,
-    SearchTypeComponent
+    QuestionsComponent
   ],
   imports: [
     BrowserModule,

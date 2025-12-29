@@ -4,12 +4,12 @@
     <mat-card-content>
       <div>
         <h1>
-          Topics
+          Questions
         </h1>
         <hr>
         <br>
-        <ng-container *ngFor="let topic of topics">
-          <mat-card>{{ topic.title }}</mat-card><br>
+        <ng-container *ngFor="let question of questions">
+          <mat-card>{{ question.description }}</mat-card><br>
         </ng-container>
         <button mat-raised-button [routerLink]="['/topics']">Topics</button>
         <button mat-raised-button [routerLink]="['/questions']">Questions</button>
