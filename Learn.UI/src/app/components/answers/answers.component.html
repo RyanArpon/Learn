@@ -1,0 +1,21 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div>
+  <mat-card class="home-card">
+    <mat-card-content>
+      <div>
+        <h1>
+          Answers
+        </h1>
+        <hr>
+        <br>
+        <ng-container *ngFor="let answer of answers">
+          <mat-card>{{ answer.description }}</mat-card><br>
+        </ng-container>
+        <button mat-raised-button [routerLink]="['/topics']">Topics</button>
+        <button mat-raised-button [routerLink]="['/questions']">Questions</button>
+        <button mat-raised-button [routerLink]="['/answers']">Answers</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>

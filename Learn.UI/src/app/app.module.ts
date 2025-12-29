@@ -9,13 +9,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TopicsComponent } from './components/topics/topics.component';
 import { QuestionsComponent } from './components/questions/questions.component';
+import { AnswersComponent } from './components/answers/answers.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TopicsComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    AnswersComponent
   ],
   imports: [
     BrowserModule,
