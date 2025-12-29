@@ -1,0 +1,51 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'LatoRegular';
+  /* Name you will use to reference the font */
+  src: url('/assets/fonts/Lato/Lato-Regular.ttf') format('truetype');
+  /* Path to the font file */
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'LatoRegular', sans-serif;
+  background-color: #eee;
+}
+
+h1 {
+  color: #960106;
+}
+
+.mat-card {
+  background: #fff;
+}
+
+.mat-raised-button {
+  border-radius: 20px;
+}
+
+.mat-raised-button.mat-primary {
+  background-color: rgb(0, 92, 187);
+  color: #fff;
+  border-radius: 20px;
+}
+
+.mat-raised-button.mat-primary:hover {
+  background-color: rgba(0, 92, 187, .75);
+}
+
+.home-card {
+  width: 500px;
+  margin: 0 auto;
+  margin-top: 200px;
+}
+
+.mat-raised-button.cta {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'LatoRegular', sans-serif;
+  padding: 10px 20px;
+  font-size: 20px;
+  border-radius: 50px;
+}
