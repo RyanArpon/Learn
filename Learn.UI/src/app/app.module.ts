@@ -3,21 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatCheckboxModule, MatDialogModule, MatGridListModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TopicsComponent } from './components/topics/topics.component';
 import { QuestionsComponent } from './components/questions/questions.component';
 import { AnswersComponent } from './components/answers/answers.component';
-
+import { TopicFormComponent } from './components/topic-form/topic-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopicsComponent,
     QuestionsComponent,
-    AnswersComponent
+    AnswersComponent,
+    TopicFormComponent
   ],
   imports: [
     BrowserModule,
@@ -26,9 +27,14 @@ import { AnswersComponent } from './components/answers/answers.component';
     MatCheckboxModule,
     MatCardModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatGridListModule,
+    MatDialogModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{ provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }],
+  bootstrap: [AppComponent],
+  entryComponents: [
+    TopicFormComponent
+  ]
 })
 export class AppModule { }
