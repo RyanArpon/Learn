@@ -25,10 +25,6 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./topics.component.css']
 })
 export class TopicsComponent extends BaseComponent implements OnInit, OnDestroy, AfterViewInit {
-  topics: any[] = [];
-  animal: string;
-  name: string;
-
   displayedColumns: string[] = ['title', 'action'];
   dataSource = new MatTableDataSource();
 

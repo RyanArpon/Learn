@@ -33,6 +33,10 @@ h3 {
   color: #960106;
 }
 
+table {
+  width: 100%;
+}
+
 button.plain {
   border: none;
   background: none;
@@ -57,7 +61,7 @@ button.plain {
 }
 
 .home-card {
-  width: 500px;
+  width: 1024px;
   margin: 0 auto;
   margin-top: 200px;
 }
@@ -114,4 +118,8 @@ button.plain {
 
 .blue-bg {
   background-color: #1868db;
+}
+
+th:last-child {
+  width: 100px;
 }
