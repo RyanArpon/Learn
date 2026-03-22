@@ -42,14 +42,18 @@ export class TopicsComponent extends BaseComponent implements OnInit, OnDestroy,
   }
 
   ngOnInit(): void {
-    this.topicsService.getTopics().pipe(takeUntil(this.stop$)).subscribe(data => {
-      this.dataSource = data;
-    });
+    this.getTopics();
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  getTopics(): void {
+    this.topicsService.getTopics().pipe(takeUntil(this.stop$)).subscribe(data => {
+      this.dataSource = data;
+    });
   }
 
   onEdit(id: string): void {
@@ -60,15 +64,16 @@ export class TopicsComponent extends BaseComponent implements OnInit, OnDestroy,
     console.log(id);
   }
 
-  openDialog(): void {
+  createTopic(): void {
     const dialogRef = this.dialog.open(TopicFormComponent, {
       width: '350px',
       data: { name: this.name, animal: this.animal }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
+      if (result) {
+        this.getTopics();
+      }
     });
   }
 }

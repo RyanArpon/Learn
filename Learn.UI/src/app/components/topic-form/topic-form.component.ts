@@ -2,6 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { BaseComponent } from 'src/app/base.component';
+import { ITopic } from 'src/app/models/topic.model';
 import { TopicsService } from 'src/app/services/topics.service';
 
 export interface DialogData {
@@ -29,8 +30,13 @@ export class TopicFormComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   onSubmit(): void {
-    console.log(this.topic.value);
-    this.dialogRef.close();
+    let topic: ITopic = {
+      title: this.topic.value
+    }
+
+    this.topicsService.createTopic(topic).subscribe(() => {
+      this.dialogRef.close(true);
+    });
   }
 
   onNoClick(): void {
