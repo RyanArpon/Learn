@@ -88,6 +88,10 @@ button.plain {
   width: 100px;
 }
 
+.white {
+  color: #fff;
+}
+
 .green {
   color: #6A9A23;
 }
