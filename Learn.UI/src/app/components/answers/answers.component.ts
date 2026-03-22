@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base.component';
 import { AnswersService } from 'src/app/services/answers.service';
@@ -9,7 +10,11 @@ import { AnswersService } from 'src/app/services/answers.service';
   styleUrls: ['./answers.component.css']
 })
 export class AnswersComponent extends BaseComponent implements OnInit, OnDestroy {
-  answers: any[] = [];
+  displayedColumns: string[] = ['description', 'isCorrect', 'action'];
+  dataSource = new MatTableDataSource();
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private questionsService: AnswersService
@@ -18,8 +23,17 @@ export class AnswersComponent extends BaseComponent implements OnInit, OnDestroy
   }
 
   ngOnInit(): void {
+    this.getAnswers();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  getAnswers(): void {
     this.questionsService.getQuestions().pipe(takeUntil(this.stop$)).subscribe(data => {
-      this.answers = data;
+      this.dataSource = data;
     });
   }
 }
