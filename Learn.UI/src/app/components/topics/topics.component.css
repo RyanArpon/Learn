@@ -6,3 +6,11 @@
   width: 210px;
   margin: .5rem 0 1rem 0;
 }
+
+h1 {
+  display: inline-block;
+}
+
+table {
+  width: 100%;
+}

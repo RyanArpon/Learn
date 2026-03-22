@@ -33,6 +33,11 @@ h3 {
   color: #960106;
 }
 
+button.plain {
+  border: none;
+  background: none;
+}
+
 .mat-card {
   background: #fff;
 }

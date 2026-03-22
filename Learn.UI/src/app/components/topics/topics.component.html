@@ -1,16 +1,55 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div>
+<div class="container">
   <mat-card class="home-card">
     <mat-card-content>
       <div>
-        <h1>
-          Topics
-        </h1>
+        <div>
+          <div class="row">
+            <div class="col-md-6">
+              <h1>
+                Topics
+              </h1>
+            </div>
+            <div class="col-md-6 text-right">
+              <button mat-raised-button (click)="openDialog()">Add
+                Topic</button>
+            </div>
+          </div>
+        </div>
         <hr>
         <br>
         <ng-container *ngFor="let topic of topics">
           <mat-card>{{ topic.title }}</mat-card><br>
+
+          <pre>{{dataSource | json}}</pre>
         </ng-container>
+
+        <div class="table-container mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+            <!-- Topic Column -->
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <strong>Title</strong> </th>
+              <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+            </ng-container>
+
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> <strong>Action</strong> </th>
+              <td mat-cell *matCellDef="let element" class="text-center">
+                <button class="plain" (click)="onEdit(element.id)"><mat-icon>edit</mat-icon></button>
+                <button class="plain" (click)="onDelete(element.id)"><mat-icon>delete</mat-icon></button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <!-- Paginator -->
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+        <br>
+
         <button mat-raised-button [routerLink]="['/topics']">Topics</button>
         <button mat-raised-button [routerLink]="['/questions']">Questions</button>
         <button mat-raised-button [routerLink]="['/answers']">Answers</button>
