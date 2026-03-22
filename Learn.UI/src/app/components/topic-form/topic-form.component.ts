@@ -6,8 +6,9 @@ import { ITopic } from 'src/app/models/topic.model';
 import { TopicsService } from 'src/app/services/topics.service';
 
 export interface DialogData {
-  animal: string;
-  name: string;
+  isEdit: boolean;
+  id?: string;
+  title?: string;
 }
 
 @Component({
@@ -27,10 +28,30 @@ export class TopicFormComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   ngOnInit(): void {
+    if (this.data.isEdit) {
+      this.topic.setValue(this.data.title);
+    } else {
+      this.topic.setValue('');
+    }
   }
 
   onSubmit(): void {
-    let topic: ITopic = {
+    let topic: ITopic;
+
+    if (this.data.isEdit) {
+      topic = {
+        id: this.data.id,
+        title: this.topic.value
+      }
+
+      this.topicsService.updateTopic(topic).subscribe(() => {
+        this.dialogRef.close(true);
+      });
+
+      return;
+    }
+
+    topic = {
       title: this.topic.value
     }
 

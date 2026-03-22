@@ -18,11 +18,6 @@
         </div>
         <hr>
         <br>
-        <ng-container *ngFor="let topic of topics">
-          <mat-card>{{ topic.title }}</mat-card><br>
-
-          <pre>{{dataSource | json}}</pre>
-        </ng-container>
 
         <div class="table-container mat-elevation-z8">
           <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
@@ -36,7 +31,7 @@
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> <strong>Action</strong> </th>
               <td mat-cell *matCellDef="let element" class="text-center">
-                <button class="plain" (click)="onEdit(element.id)"><mat-icon class="blue"
+                <button class="plain" (click)="onEdit(element.id, element.title)"><mat-icon class="blue"
                     matTooltip="Edit">edit</mat-icon></button>
                 <button class="plain" (click)="onDelete(element.id, element.title)"><mat-icon class="red"
                     matTooltip="Delete">delete</mat-icon></button>

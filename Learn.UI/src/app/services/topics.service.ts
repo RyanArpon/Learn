@@ -18,6 +18,10 @@ export class TopicsService {
     return this.http.post(`${environment.apiBaseUrl}Topics`, topic);
   }
 
+  updateTopic(topic: ITopic): Observable<any> {
+    return this.http.put(`${environment.apiBaseUrl}Topics/${topic.id}`, topic);
+  }
+
   deleteTopic(id: string): Observable<any> {
     return this.http.delete(`${environment.apiBaseUrl}Topics/${id}`);
   }

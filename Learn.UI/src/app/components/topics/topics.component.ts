@@ -57,10 +57,6 @@ export class TopicsComponent extends BaseComponent implements OnInit, OnDestroy,
     });
   }
 
-  onEdit(id: string): void {
-    console.log(id);
-  }
-
   onDelete(id: string, title: string): void {
     Swal.fire({
       icon: "question",
@@ -83,7 +79,24 @@ export class TopicsComponent extends BaseComponent implements OnInit, OnDestroy,
   createTopic(): void {
     const dialogRef = this.dialog.open(TopicFormComponent, {
       width: '350px',
-      data: { name: this.name, animal: this.animal }
+      data: { isEdit: false }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getTopics();
+      }
+    });
+  }
+
+  onEdit(id: string, title: string): void {
+    const dialogRef = this.dialog.open(TopicFormComponent, {
+      width: '350px',
+      data: {
+        isEdit: true,
+        id: id,
+        title: title
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
