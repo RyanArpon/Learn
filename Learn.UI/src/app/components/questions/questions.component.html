@@ -9,7 +9,7 @@
         <hr>
         <br>
 
-        <div class="table-container mat-elevation-z8">
+        <div *ngIf="dataSource.length; else spinner" class="table-container mat-elevation-z8">
           <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
             <!-- Topic Column -->
             <ng-container matColumnDef="description">
@@ -35,6 +35,13 @@
           <!-- Paginator -->
           <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
         </div>
+
+        <ng-template #spinner>
+          <div class="spinner-container text-center">
+            <mat-spinner></mat-spinner>
+          </div>
+        </ng-template>
+
         <br>
 
         <button mat-raised-button [routerLink]="['/topics']">Topics</button>

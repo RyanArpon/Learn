@@ -123,3 +123,15 @@ button.plain {
 th:last-child {
   width: 100px;
 }
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  /* Centers horizontally */
+  align-items: center;
+  /* Centers vertically */
+  height: 100%;
+  /* Ensure container has height */
+  width: 100%;
+  /* Ensure container has width */
+}
