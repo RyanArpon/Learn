@@ -1,21 +1,17 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div class="container">
-  <mat-card>
-    <mat-card-content>
-      <div>
-        <div>
-          <div class="row">
-            <div class="col-md-6">
-              <h2>
-                Add Topic
-              </h2>
-            </div>
-          </div>
-        </div>
-        <hr>
-        <br>
-      </div>
-    </mat-card-content>
-  </mat-card>
+<div class="row">
+  <div class="col-md-12">
+    <h2>
+      Add Topic
+    </h2>
+    <div class="form-container">
+      <mat-form-field>
+        <textarea matInput placeholder="Topic Description" [formControl]="topic"></textarea>
+      </mat-form-field>
 
+      <div mat-dialog-actions>
+        <button mat-button mat-raised-button (click)="onSubmit()">Submit</button>
+        <button mat-button mat-raised-button (click)="onNoClick()">Cancel</button>
+      </div>
+    </div>
+  </div>
 </div>

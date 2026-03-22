@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base.component';
 import { TopicsService } from 'src/app/services/topics.service';
 
@@ -15,7 +15,7 @@ export interface DialogData {
   styleUrls: ['./topic-form.component.css']
 })
 export class TopicFormComponent extends BaseComponent implements OnInit, OnDestroy {
-  topics: any[] = [];
+  topic = new FormControl('');
 
   constructor(
     private topicsService: TopicsService,
@@ -26,9 +26,11 @@ export class TopicFormComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   ngOnInit(): void {
-    this.topicsService.getTopics().pipe(takeUntil(this.stop$)).subscribe(data => {
-      this.topics = data;
-    });
+  }
+
+  onSubmit(): void {
+    console.log(this.topic.value);
+    this.dialogRef.close();
   }
 
   onNoClick(): void {
