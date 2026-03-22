@@ -4,6 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base.component';
 import { TopicsService } from 'src/app/services/topics.service';
 import { TopicFormComponent } from '../topic-form/topic-form.component';
+import Swal from 'sweetalert2';
 
 export interface PeriodicElement {
   name: string;
@@ -60,8 +61,23 @@ export class TopicsComponent extends BaseComponent implements OnInit, OnDestroy,
     console.log(id);
   }
 
-  onDelete(id: string): void {
-    console.log(id);
+  onDelete(id: string, title: string): void {
+    Swal.fire({
+      icon: "question",
+      text: `Are you sure you want to delete "${title}" topic?`,
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      confirmButtonColor: '#6A9A23',
+      cancelButtonColor: '#E2483D',
+      customClass: {
+        confirmButton: 'swal-confirm-button',
+        cancelButton: 'swal-cancel-button'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteTopic(id);
+      }
+    });
   }
 
   createTopic(): void {
@@ -74,6 +90,12 @@ export class TopicsComponent extends BaseComponent implements OnInit, OnDestroy,
       if (result) {
         this.getTopics();
       }
+    });
+  }
+
+  deleteTopic(id: string): void {
+    this.topicsService.deleteTopic(id).subscribe(() => {
+      this.getTopics();
     });
   }
 }

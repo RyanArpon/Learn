@@ -82,3 +82,32 @@ button.plain {
 .text-right {
   text-align: right;
 }
+
+.swal-confirm-button,
+.swal-cancel-button {
+  width: 100px;
+}
+
+.green {
+  color: #6A9A23;
+}
+
+.red {
+  color: #E2483D;
+}
+
+.blue {
+  color: #1868db;
+}
+
+.green-bg {
+  background-color: #6A9A23;
+}
+
+.red-bg {
+  background-color: #E2483D;
+}
+
+.blue-bg {
+  background-color: #1868db;
+}
