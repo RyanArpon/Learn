@@ -10,14 +10,21 @@
             {{topic.title}}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="topic.hasError('required')">
+          This field is required.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field>
         <textarea matInput placeholder="Question" [formControl]="question"></textarea>
+        <mat-error *ngIf="question.hasError('required')">
+          This field is required.
+        </mat-error>
       </mat-form-field>
 
       <div mat-dialog-actions>
-        <button mat-button mat-raised-button (click)="onSubmit()" class="blue-bg white">Submit</button>
+        <button mat-button mat-raised-button (click)="onSubmit()" class="blue-bg white"
+          [disabled]="topic.invalid || question.invalid">Submit</button>
         <button mat-button mat-raised-button (click)="onNoClick()" class="red-bg white">Cancel</button>
       </div>
     </div>

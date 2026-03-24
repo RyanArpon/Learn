@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { BaseComponent } from 'src/app/base.component';
 import { ITopic } from 'src/app/models/topic.model';
@@ -17,7 +17,7 @@ export interface DialogData {
   styleUrls: ['./topic-form.component.css']
 })
 export class TopicFormComponent extends BaseComponent implements OnInit, OnDestroy {
-  topic = new FormControl('');
+  topic = new FormControl('', [Validators.required]);
 
   constructor(
     private topicsService: TopicsService,
