@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base.component';
 import { QuestionsService } from 'src/app/services/questions.service';
+import { QuestionFormComponent } from '../question-form/question-form.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'questions',
@@ -17,7 +19,8 @@ export class QuestionsComponent extends BaseComponent implements OnInit, OnDestr
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private questionsService: QuestionsService
+    private questionsService: QuestionsService,
+    public dialog: MatDialog
   ) {
     super();
   }
@@ -34,6 +37,25 @@ export class QuestionsComponent extends BaseComponent implements OnInit, OnDestr
   getQuestions(): void {
     this.questionsService.getQuestions().pipe(takeUntil(this.stop$)).subscribe(data => {
       this.dataSource = data;
+    });
+  }
+
+  createQuestion(): void {
+    const dialogRef = this.dialog.open(QuestionFormComponent, {
+      width: '350px',
+      data: { isEdit: false }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getQuestions();
+
+        Swal({
+          text: `Topic has been created.`,
+          type: 'success',
+          confirmButtonText: 'OK'
+        });
+      }
     });
   }
 }

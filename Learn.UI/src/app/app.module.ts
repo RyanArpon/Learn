@@ -27,6 +27,7 @@ import { QuestionsComponent } from './components/questions/questions.component';
 import { AnswersComponent } from './components/answers/answers.component';
 import { TopicFormComponent } from './components/topic-form/topic-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { QuestionFormComponent } from './components/question-form/question-form.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     TopicsComponent,
     QuestionsComponent,
     AnswersComponent,
-    TopicFormComponent
+    TopicFormComponent,
+    QuestionFormComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   providers: [{ provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }],
   bootstrap: [AppComponent],
   entryComponents: [
-    TopicFormComponent
+    TopicFormComponent,
+    QuestionFormComponent
   ]
 })
 export class AppModule { }
