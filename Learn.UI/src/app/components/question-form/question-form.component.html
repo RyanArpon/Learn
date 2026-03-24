@@ -5,6 +5,14 @@
     </h2>
     <div class="form-container">
       <mat-form-field>
+        <mat-select placeholder="Select Topic" [formControl]="topic">
+          <mat-option *ngFor="let topic of topics" [value]="topic.id">
+            {{topic.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
         <textarea matInput placeholder="Question" [formControl]="question"></textarea>
       </mat-form-field>
 

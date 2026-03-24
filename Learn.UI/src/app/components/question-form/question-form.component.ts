@@ -1,8 +1,10 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base.component';
 import { IQuestion } from 'src/app/models/question.model';
+import { ITopic } from 'src/app/models/topic.model';
 import { QuestionsService } from 'src/app/services/questions.service';
 import { TopicsService } from 'src/app/services/topics.service';
 
@@ -19,17 +21,21 @@ export interface DialogData {
 })
 export class QuestionFormComponent extends BaseComponent implements OnInit, OnDestroy {
   question = new FormControl('');
-  topicId = new FormControl('');
+  topic = new FormControl('');
+  topics: ITopic[] = [];
 
   constructor(
     private questionsService: QuestionsService,
     public dialogRef: MatDialogRef<QuestionFormComponent>,
+    private topicsService: TopicsService,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
     super();
   }
 
   ngOnInit(): void {
+    this.getTopics();
+
     if (this.data.isEdit) {
       this.question.setValue(this.data.title);
     } else {
@@ -37,11 +43,18 @@ export class QuestionFormComponent extends BaseComponent implements OnInit, OnDe
     }
   }
 
+  getTopics(): void {
+    this.topicsService.getTopics().pipe(takeUntil(this.stop$)).subscribe(data => {
+      this.topics = data;
+    });
+  }
+
   onSubmit(): void {
     let question: IQuestion;
 
     if (this.data.isEdit) {
       question = {
+        topicId: this.topic.value,
         id: this.data.id,
         description: this.question.value
       }
@@ -54,6 +67,7 @@ export class QuestionFormComponent extends BaseComponent implements OnInit, OnDe
     }
 
     question = {
+      topicId: this.topic.value,
       description: this.question.value
     }
 
