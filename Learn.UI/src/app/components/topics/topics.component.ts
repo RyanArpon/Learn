@@ -54,22 +54,21 @@ export class TopicsComponent extends BaseComponent implements OnInit, OnDestroy,
   }
 
   onDelete(id: string, title: string): void {
-    Swal.fire({
-      icon: "question",
+    Swal({
       text: `Are you sure you want to delete "${title}" topic?`,
       showCancelButton: true,
       confirmButtonText: "Yes",
-      confirmButtonColor: '#6A9A23',
+      type: 'warning',
+      cancelButtonText: 'Cancel',
+      confirmButtonClass: 'swal-confirm-button',
+      cancelButtonClass: 'swal-cancel-button',
       cancelButtonColor: '#E2483D',
-      customClass: {
-        confirmButton: 'swal-confirm-button',
-        cancelButton: 'swal-cancel-button'
-      }
+      buttonsStyling: true
     }).then((result) => {
-      if (result.isConfirmed) {
+      if (result.value) {
         this.deleteTopic(id);
       }
-    });
+    })
   }
 
   createTopic(): void {
@@ -81,6 +80,12 @@ export class TopicsComponent extends BaseComponent implements OnInit, OnDestroy,
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.getTopics();
+
+        Swal({
+          text: `Topic has been created.`,
+          type: 'success',
+          confirmButtonText: 'OK'
+        });
       }
     });
   }
@@ -105,6 +110,12 @@ export class TopicsComponent extends BaseComponent implements OnInit, OnDestroy,
   deleteTopic(id: string): void {
     this.topicsService.deleteTopic(id).subscribe(() => {
       this.getTopics();
+
+      Swal({
+        text: `Topic has been deleted.`,
+        type: 'success',
+        confirmButtonText: 'OK'
+      });
     });
   }
 }

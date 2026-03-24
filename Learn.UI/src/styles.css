@@ -92,6 +92,12 @@ button.plain {
   width: 100px;
 }
 
+.swal2-popup .swal2-styled.swal-confirm-button,
+.swal2-popup .swal2-styled.swal-cancel-button {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .white {
   color: #fff;
 }
@@ -134,4 +140,8 @@ th:last-child {
   /* Ensure container has height */
   width: 100%;
   /* Ensure container has width */
+}
+
+.swal2-actions button {
+  width: 100px;
 }
