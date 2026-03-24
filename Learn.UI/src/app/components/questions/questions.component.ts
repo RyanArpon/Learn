@@ -58,4 +58,34 @@ export class QuestionsComponent extends BaseComponent implements OnInit, OnDestr
       }
     });
   }
+
+  onDelete(id: string, description: string): void {
+    Swal({
+      text: `Are you sure you want to delete "${description}" question?`,
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      type: 'warning',
+      cancelButtonText: 'Cancel',
+      confirmButtonClass: 'swal-confirm-button',
+      cancelButtonClass: 'swal-cancel-button',
+      cancelButtonColor: '#E2483D',
+      buttonsStyling: true
+    }).then((result) => {
+      if (result.value) {
+        this.deleteQuestion(id);
+      }
+    })
+  }
+
+  deleteQuestion(id: string): void {
+    this.questionsService.deleteQuestion(id).subscribe(() => {
+      this.getQuestions();
+
+      Swal({
+        text: `Topic has been deleted.`,
+        type: 'success',
+        confirmButtonText: 'OK'
+      });
+    });
+  }
 }
