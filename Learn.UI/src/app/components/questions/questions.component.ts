@@ -59,6 +59,24 @@ export class QuestionsComponent extends BaseComponent implements OnInit, OnDestr
     });
   }
 
+  onEdit(id: string, description: string, topicId: string): void {
+    const dialogRef = this.dialog.open(QuestionFormComponent, {
+      width: '350px',
+      data: {
+        isEdit: true,
+        id: id,
+        description: description,
+        topicId: topicId
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getQuestions();
+      }
+    });
+  }
+
   onDelete(id: string, description: string): void {
     Swal({
       text: `Are you sure you want to delete "${description}" question?`,

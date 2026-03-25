@@ -36,13 +36,14 @@ namespace Learn.API.Repositories {
 
         public async Task<Question?> UpdateAsync(Guid id, Question question) {
             var existingQuestion = await dbContext.Questions.FirstOrDefaultAsync(x => x.Id == id);
-            var existingTopic = await dbContext.Topics.FirstOrDefaultAsync(x => x.Id == question.Id);
+            var existingTopic = await dbContext.Topics.FirstOrDefaultAsync(x => x.Id == question.TopicId);
 
             if (existingQuestion == null || existingTopic == null) {
                 return null;
             }
 
             existingQuestion.Description = question.Description;
+            existingQuestion.TopicId = question.TopicId;
 
             await dbContext.SaveChangesAsync();
 

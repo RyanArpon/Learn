@@ -11,7 +11,8 @@ import { TopicsService } from 'src/app/services/topics.service';
 export interface DialogData {
   isEdit: boolean;
   id?: string;
-  title?: string;
+  description?: string;
+  topicId?: string;
 }
 
 @Component({
@@ -23,6 +24,7 @@ export class QuestionFormComponent extends BaseComponent implements OnInit, OnDe
   question = new FormControl('', [Validators.required]);
   topic = new FormControl('', [Validators.required]);
   topics: ITopic[] = [];
+  questions: IQuestion[] = [];
 
   constructor(
     private questionsService: QuestionsService,
@@ -37,15 +39,23 @@ export class QuestionFormComponent extends BaseComponent implements OnInit, OnDe
     this.getTopics();
 
     if (this.data.isEdit) {
-      this.question.setValue(this.data.title);
+      this.question.setValue(this.data.description);
+      this.topic.setValue(this.data.topicId);
     } else {
       this.question.setValue('');
+      this.topic.setValue('');
     }
   }
 
   getTopics(): void {
     this.topicsService.getTopics().pipe(takeUntil(this.stop$)).subscribe(data => {
       this.topics = data;
+    });
+  }
+
+  getQuestions(): void {
+    this.questionsService.getQuestions().pipe(takeUntil(this.stop$)).subscribe(data => {
+      this.questions = data;
     });
   }
 
