@@ -3,9 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { TopicsComponent } from './components/topics/topics.component';
 import { QuestionsComponent } from './components/questions/questions.component';
 import { AnswersComponent } from './components/answers/answers.component';
+import { TopicComponent } from './components/topic/topic.component';
+import { TopicDetailsComponent } from './components/topic-details/topic-details.component';
 
 const routes: Routes = [
-  { path: 'topics', component: TopicsComponent },
+  {
+    path: 'topic',
+    component: TopicComponent,
+    children: [
+      { path: 'list', component: TopicsComponent },
+      { path: ':id', component: TopicDetailsComponent }
+    ]
+  },
   { path: 'questions', component: QuestionsComponent },
   { path: 'answers', component: AnswersComponent },
   { path: '', redirectTo: '/topics', pathMatch: 'full' }, // Default route

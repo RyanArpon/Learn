@@ -63,5 +63,9 @@ namespace Learn.API.Repositories {
 
             return existingQuestion;
         }
+
+        public async Task<List<Question>> GetAllByTopicIdAsync(Guid topicId) {
+            return await dbContext.Questions.Where(x => x.TopicId == topicId && x.IsActive).ToListAsync();
+        }
     }
 }

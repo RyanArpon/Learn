@@ -28,6 +28,8 @@ import { AnswersComponent } from './components/answers/answers.component';
 import { TopicFormComponent } from './components/topic-form/topic-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { QuestionFormComponent } from './components/question-form/question-form.component';
+import { TopicComponent } from './components/topic/topic.component';
+import { TopicDetailsComponent } from './components/topic-details/topic-details.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { QuestionFormComponent } from './components/question-form/question-form.
     QuestionsComponent,
     AnswersComponent,
     TopicFormComponent,
-    QuestionFormComponent
+    QuestionFormComponent,
+    TopicComponent,
+    TopicDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -25,4 +25,8 @@ export class QuestionsService {
   deleteQuestion(id: string): Observable<any> {
     return this.http.delete(`${environment.apiBaseUrl}Questions/${id}`);
   }
+
+  getQuestionsByTopicId(topicId: string): Observable<any> {
+    return this.http.get(`${environment.apiBaseUrl}Questions/GetAllByTopicId/${topicId}`);
+  }
 }

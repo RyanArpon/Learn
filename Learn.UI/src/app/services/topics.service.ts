@@ -25,4 +25,8 @@ export class TopicsService {
   deleteTopic(id: string): Observable<any> {
     return this.http.delete(`${environment.apiBaseUrl}Topics/${id}`);
   }
+
+  getTopic(id: string): Observable<any> {
+    return this.http.get(`${environment.apiBaseUrl}Topics/${id}`);
+  }
 }

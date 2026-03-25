@@ -112,5 +112,14 @@ namespace Learn.API.Controllers {
 
             return Ok(regionDto);
         }
+
+        [HttpGet("GetAllByTopicId/{topicId}")]
+        //[Authorize(Roles = "Reader")]
+        public async Task<IActionResult> GetAllByTopicId(Guid topicId) {
+            var questionsDomain = await questionRepository.GetAllByTopicIdAsync(topicId);
+
+            // Return DTO
+            return Ok(mapper.Map<List<QuestionDto>>(questionsDomain));
+        }
     }
 }

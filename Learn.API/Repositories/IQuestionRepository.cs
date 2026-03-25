@@ -9,5 +9,6 @@ namespace Learn.API.Repositories {
         Task<Question> CreateAsync(Question topic);
         Task<Question?> UpdateAsync(Guid id, Question topic);
         Task<Question?> DeleteAsync(Guid id);
+        Task<List<Question>> GetAllByTopicIdAsync(Guid id);
     }
 }

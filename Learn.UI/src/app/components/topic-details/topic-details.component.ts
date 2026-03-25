@@ -5,13 +5,18 @@ import { BaseComponent } from 'src/app/base.component';
 import { TopicsService } from 'src/app/services/topics.service';
 import { TopicFormComponent } from '../topic-form/topic-form.component';
 import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
+import { ITopic } from 'src/app/models/topic.model';
+import { QuestionsService } from 'src/app/services/questions.service';
 
 @Component({
-  selector: 'topics',
-  templateUrl: './topics.component.html',
-  styleUrls: ['./topics.component.css']
+  selector: 'topic-details',
+  templateUrl: './topic-details.component.html',
+  styleUrls: ['./topic-details.component.css']
 })
-export class TopicsComponent extends BaseComponent implements OnInit, OnDestroy, AfterViewInit {
+export class TopicDetailsComponent extends BaseComponent implements OnInit, OnDestroy, AfterViewInit {
+  topicId: string = '';
+  topicTitle: string = '';
   displayedColumns: string[] = ['title', 'action'];
   dataSource = new MatTableDataSource();
 
@@ -20,13 +25,15 @@ export class TopicsComponent extends BaseComponent implements OnInit, OnDestroy,
 
   constructor(
     private topicsService: TopicsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private questionsService: QuestionsService
   ) {
     super();
   }
 
   ngOnInit(): void {
-    this.getTopics();
+    this.getTopic();
   }
 
   ngAfterViewInit() {
@@ -34,8 +41,18 @@ export class TopicsComponent extends BaseComponent implements OnInit, OnDestroy,
     this.dataSource.sort = this.sort;
   }
 
-  getTopics(): void {
-    this.topicsService.getTopics().pipe(takeUntil(this.stop$)).subscribe(data => {
+  getTopic(): void {
+    this.topicId = this.route.snapshot.paramMap.get('id');
+
+    this.topicsService.getTopic(this.topicId).pipe(takeUntil(this.stop$)).subscribe((topic: ITopic) => {
+      this.topicTitle = topic.title;
+
+      this.getQuestionsByTopicId();
+    });
+  }
+
+  getQuestionsByTopicId(): void {
+    this.questionsService.getQuestionsByTopicId(this.topicId).pipe(takeUntil(this.stop$)).subscribe(data => {
       this.dataSource = data;
     });
   }
