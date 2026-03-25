@@ -103,6 +103,12 @@ export class TopicsComponent extends BaseComponent implements OnInit, OnDestroy,
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.getTopics();
+
+        Swal({
+          text: `Topic has been updated.`,
+          type: 'success',
+          confirmButtonText: 'OK'
+        });
       }
     });
   }

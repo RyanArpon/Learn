@@ -4,29 +4,31 @@
       Add Question
     </h2>
     <div class="form-container">
-      <mat-form-field>
-        <mat-select placeholder="Select Topic" [formControl]="topic">
-          <mat-option *ngFor="let topic of topics" [value]="topic.id">
-            {{topic.title}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="topic.hasError('required')">
-          This field is required.
-        </mat-error>
-      </mat-form-field>
+      <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <mat-select placeholder="Select Topic" formControlName="topic">
+            <mat-option *ngFor="let topic of topics" [value]="topic.id">
+              {{topic.title}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="questionForm.get('topic').hasError('required')">
+            This field is required.
+          </mat-error>
+        </mat-form-field>
 
-      <mat-form-field>
-        <textarea matInput placeholder="Question" [formControl]="question"></textarea>
-        <mat-error *ngIf="question.hasError('required')">
-          This field is required.
-        </mat-error>
-      </mat-form-field>
+        <mat-form-field>
+          <textarea matInput placeholder="Question" formControlName="question"></textarea>
+          <mat-error *ngIf="questionForm.get('question').hasError('required')">
+            This field is required.
+          </mat-error>
+        </mat-form-field>
 
-      <div mat-dialog-actions>
-        <button mat-button mat-raised-button (click)="onSubmit()" class="blue-bg white"
-          [disabled]="topic.invalid || question.invalid">Submit</button>
-        <button mat-button mat-raised-button (click)="onNoClick()" class="red-bg white">Cancel</button>
-      </div>
+        <div mat-dialog-actions>
+          <button mat-button mat-raised-button type="submit" class="blue-bg white"
+            [disabled]="questionForm.invalid">Submit</button>
+          <button mat-button mat-raised-button type="button" (click)="onNoClick()" class="red-bg white">Cancel</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { BaseComponent } from 'src/app/base.component';
 import { ITopic } from 'src/app/models/topic.model';
@@ -17,7 +17,9 @@ export interface DialogData {
   styleUrls: ['./topic-form.component.css']
 })
 export class TopicFormComponent extends BaseComponent implements OnInit, OnDestroy {
-  topic = new FormControl('', [Validators.required]);
+  topicForm = new FormGroup({
+    topic: new FormControl({ value: '' }, [Validators.required])
+  });
 
   constructor(
     private topicsService: TopicsService,
@@ -29,9 +31,9 @@ export class TopicFormComponent extends BaseComponent implements OnInit, OnDestr
 
   ngOnInit(): void {
     if (this.data.isEdit) {
-      this.topic.setValue(this.data.title);
+      this.topicForm.get('topic').setValue(this.data.title);
     } else {
-      this.topic.setValue('');
+      this.topicForm.get('topic').setValue('');
     }
   }
 
@@ -41,7 +43,7 @@ export class TopicFormComponent extends BaseComponent implements OnInit, OnDestr
     if (this.data.isEdit) {
       topic = {
         id: this.data.id,
-        title: this.topic.value
+        title: this.topicForm.get('topic').value
       }
 
       this.topicsService.updateTopic(topic).subscribe(() => {
@@ -52,7 +54,7 @@ export class TopicFormComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     topic = {
-      title: this.topic.value
+      title: this.topicForm.get('topic').value
     }
 
     this.topicsService.createTopic(topic).subscribe(() => {

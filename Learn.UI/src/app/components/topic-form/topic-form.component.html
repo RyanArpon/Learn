@@ -4,18 +4,20 @@
       Add Topic
     </h2>
     <div class="form-container">
-      <mat-form-field>
-        <textarea matInput placeholder="Topic Title" [formControl]="topic"></textarea>
-        <mat-error *ngIf="topic.hasError('required')">
-          This field is required.
-        </mat-error>
-      </mat-form-field>
+      <form [formGroup]="topicForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <textarea matInput placeholder="Topic Title" formControlName="topic"></textarea>
+          <mat-error *ngIf="topicForm.get('topic').hasError('required')">
+            This field is required.
+          </mat-error>
+        </mat-form-field>
 
-      <div mat-dialog-actions>
-        <button mat-button mat-raised-button (click)="onSubmit()" class="blue-bg white"
-          [disabled]="topic.invalid">Submit</button>
-        <button mat-button mat-raised-button (click)="onNoClick()" class="red-bg white">Cancel</button>
-      </div>
+        <div mat-dialog-actions>
+          <button mat-button mat-raised-button type="submit" class="blue-bg white"
+            [disabled]="topicForm.get('topic').invalid">Submit</button>
+          <button mat-button mat-raised-button type="button" (click)="onNoClick()" class="red-bg white">Cancel</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

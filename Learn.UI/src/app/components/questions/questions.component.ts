@@ -51,7 +51,7 @@ export class QuestionsComponent extends BaseComponent implements OnInit, OnDestr
         this.getQuestions();
 
         Swal({
-          text: `Topic has been created.`,
+          text: `Question has been created.`,
           type: 'success',
           confirmButtonText: 'OK'
         });
@@ -73,6 +73,12 @@ export class QuestionsComponent extends BaseComponent implements OnInit, OnDestr
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.getQuestions();
+
+        Swal({
+          text: `Question has been updated.`,
+          type: 'success',
+          confirmButtonText: 'OK'
+        });
       }
     });
   }
@@ -100,7 +106,7 @@ export class QuestionsComponent extends BaseComponent implements OnInit, OnDestr
       this.getQuestions();
 
       Swal({
-        text: `Topic has been deleted.`,
+        text: `Question has been deleted.`,
         type: 'success',
         confirmButtonText: 'OK'
       });
