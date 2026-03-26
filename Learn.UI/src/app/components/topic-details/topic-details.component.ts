@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 import { ITopic } from 'src/app/models/topic.model';
 import { QuestionsService } from 'src/app/services/questions.service';
+import { QuestionFormComponent } from '../question-form/question-form.component';
 
 @Component({
   selector: 'topic-details',
@@ -57,9 +58,33 @@ export class TopicDetailsComponent extends BaseComponent implements OnInit, OnDe
     });
   }
 
-  onDelete(id: string, title: string): void {
+  onEdit(id: string, description: string, topicId: string): void {
+    const dialogRef = this.dialog.open(QuestionFormComponent, {
+      width: '350px',
+      data: {
+        isEdit: true,
+        id: id,
+        description: description,
+        topicId: topicId
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getQuestionsByTopicId();
+
+        Swal({
+          text: `Question has been updated.`,
+          type: 'success',
+          confirmButtonText: 'OK'
+        });
+      }
+    });
+  }
+
+  onDelete(id: string, description: string): void {
     Swal({
-      text: `Are you sure you want to delete "${title}" topic?`,
+      text: `Are you sure you want to delete "${description}" question?`,
       showCancelButton: true,
       confirmButtonText: "Yes",
       type: 'warning',
@@ -70,59 +95,17 @@ export class TopicDetailsComponent extends BaseComponent implements OnInit, OnDe
       buttonsStyling: true
     }).then((result) => {
       if (result.value) {
-        this.deleteTopic(id);
+        this.deleteQuestion(id);
       }
     })
   }
 
-  createTopic(): void {
-    const dialogRef = this.dialog.open(TopicFormComponent, {
-      width: '350px',
-      data: { isEdit: false }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.getTopics();
-
-        Swal({
-          text: `Topic has been created.`,
-          type: 'success',
-          confirmButtonText: 'OK'
-        });
-      }
-    });
-  }
-
-  onEdit(id: string, title: string): void {
-    const dialogRef = this.dialog.open(TopicFormComponent, {
-      width: '350px',
-      data: {
-        isEdit: true,
-        id: id,
-        title: title
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.getTopics();
-
-        Swal({
-          text: `Topic has been updated.`,
-          type: 'success',
-          confirmButtonText: 'OK'
-        });
-      }
-    });
-  }
-
-  deleteTopic(id: string): void {
-    this.topicsService.deleteTopic(id).subscribe(() => {
-      this.getTopics();
+  deleteQuestion(id: string): void {
+    this.questionsService.deleteQuestion(id).subscribe(() => {
+      this.getQuestionsByTopicId();
 
       Swal({
-        text: `Topic has been deleted.`,
+        text: `Question has been deleted.`,
         type: 'success',
         confirmButtonText: 'OK'
       });
