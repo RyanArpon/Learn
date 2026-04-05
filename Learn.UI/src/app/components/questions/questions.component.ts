@@ -5,6 +5,7 @@ import { BaseComponent } from 'src/app/base.component';
 import { QuestionsService } from 'src/app/services/questions.service';
 import { QuestionFormComponent } from '../question-form/question-form.component';
 import Swal from 'sweetalert2';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'questions',
@@ -17,16 +18,22 @@ export class QuestionsComponent extends BaseComponent implements OnInit, OnDestr
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  pageNumber: number = 1;
+  pageSize: number = 10;
+  length: number = 0;
 
   constructor(
     private questionsService: QuestionsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     super();
+    this.checkURLParams();
   }
 
   ngOnInit(): void {
-    this.getQuestions();
+    this.getQuestions(this.pageNumber, this.pageSize);
   }
 
   ngAfterViewInit() {
@@ -34,9 +41,10 @@ export class QuestionsComponent extends BaseComponent implements OnInit, OnDestr
     this.dataSource.sort = this.sort;
   }
 
-  getQuestions(): void {
-    this.questionsService.getQuestions().pipe(takeUntil(this.stop$)).subscribe(data => {
-      this.dataSource = data;
+  getQuestions(pageNumber: number, pageSize: number): void {
+    this.questionsService.getQuestions(pageNumber, pageSize).pipe(takeUntil(this.stop$)).subscribe(data => {
+      this.dataSource = data.questions;
+      this.length = data.count;
     });
   }
 
@@ -48,7 +56,7 @@ export class QuestionsComponent extends BaseComponent implements OnInit, OnDestr
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getQuestions();
+        this.getQuestions(this.pageNumber, this.pageSize);
 
         Swal({
           text: `Question has been created.`,
@@ -72,7 +80,7 @@ export class QuestionsComponent extends BaseComponent implements OnInit, OnDestr
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getQuestions();
+        this.getQuestions(this.pageNumber, this.pageSize);
 
         Swal({
           text: `Question has been updated.`,
@@ -103,7 +111,7 @@ export class QuestionsComponent extends BaseComponent implements OnInit, OnDestr
 
   deleteQuestion(id: string): void {
     this.questionsService.deleteQuestion(id).subscribe(() => {
-      this.getQuestions();
+      this.getQuestions(this.pageNumber, this.pageSize);
 
       Swal({
         text: `Question has been deleted.`,
@@ -111,5 +119,22 @@ export class QuestionsComponent extends BaseComponent implements OnInit, OnDestr
         confirmButtonText: 'OK'
       });
     });
+  }
+
+  checkURLParams(): void {
+    const hasPageNumber = this.route.snapshot.queryParamMap.has('pageNumber');
+    const hasPageSize = this.route.snapshot.queryParamMap.has('pageSize');
+
+    if (!hasPageNumber && !hasPageSize) {
+      this.router.navigateByUrl(`/questions?pageNumber=${this.pageNumber}&pageSize=${this.pageSize}`);
+    }
+  }
+
+  onPageChange(event: any): void {
+    const pageNumber = event.pageIndex + 1;
+    const pageSize = event.pageSize;
+
+    this.router.navigateByUrl(`/questions?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+    this.getQuestions(pageNumber, pageSize);
   }
 }

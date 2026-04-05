@@ -10,8 +10,8 @@ import { IQuestion } from '../models/question.model';
 export class QuestionsService {
   constructor(private http: HttpClient) { }
 
-  getQuestions(): Observable<any> {
-    return this.http.get(`${environment.apiBaseUrl}Questions`);
+  getQuestions(pageNumber: number, pageSize: number): Observable<any> {
+    return this.http.get(`${environment.apiBaseUrl}Questions?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
   createQuestion(question: IQuestion): Observable<any> {

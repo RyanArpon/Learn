@@ -71,12 +71,6 @@ export class QuestionFormComponent extends BaseComponent implements OnInit, OnDe
     });
   }
 
-  getQuestions(): void {
-    this.questionsService.getQuestions().pipe(takeUntil(this.stop$)).subscribe(data => {
-      this.questions = data;
-    });
-  }
-
   onSubmit(): void {
     let question: IQuestion;
 

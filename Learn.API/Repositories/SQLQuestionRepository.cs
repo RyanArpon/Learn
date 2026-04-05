@@ -26,8 +26,23 @@ namespace Learn.API.Repositories {
             return question;
         }
 
-        public async Task<List<Question>> GetAllAsync() {
-            return await dbContext.Questions.Where(x => x.IsActive).ToListAsync();
+        public async Task<QuestionsDto> GetAllAsync(int pageNumber, int pageSize) {
+            var count = await dbContext.Questions.Where(x => x.IsActive).CountAsync();
+            var skip = (pageNumber - 1) * pageSize;
+
+            var questions = await dbContext.Questions
+                .Where(x => x.IsActive)
+                .Skip(skip)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var questionsDto = new QuestionsDto
+            {
+                Count = count,
+                Questions = questions
+            };
+
+            return questionsDto;
         }
 
         public async Task<Question?> GetByIdAsync(Guid id) {

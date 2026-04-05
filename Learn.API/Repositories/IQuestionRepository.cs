@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace Learn.API.Repositories {
     public interface IQuestionRepository {
-        Task<List<Question>> GetAllAsync();
+        Task<QuestionsDto> GetAllAsync(int pageNumber, int pageSize);
         Task<Question?> GetByIdAsync(Guid id);
         Task<Question> CreateAsync(Question topic);
         Task<Question?> UpdateAsync(Guid id, Question topic);

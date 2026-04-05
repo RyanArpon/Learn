@@ -33,14 +33,16 @@ namespace Learn.API.Controllers {
 
         [HttpGet]
         //[Authorize(Roles = "Reader")]
-        public async Task<IActionResult> GetAll() {
+        public async Task<IActionResult> GetAll([FromQuery] int pageNumber, [FromQuery] int pageSize) {
             // Get Data from Database - Domain Models
-            var questionsDomain = await questionRepository.GetAllAsync();
+            var questionsDomain = await questionRepository.GetAllAsync(pageNumber, pageSize);
 
             // Return DTOs
             logger.LogInformation($"Finished GetAllQuestions request with data: {JsonSerializer.Serialize(questionsDomain)}");
 
-            return Ok(mapper.Map<List<QuestionDto>>(questionsDomain));
+            mapper.Map<List<QuestionDto>>(questionsDomain.Questions);
+
+            return Ok(questionsDomain);
         }
 
         [HttpGet]
