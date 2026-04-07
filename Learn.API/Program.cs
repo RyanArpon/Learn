@@ -16,15 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .WriteTo.File("Logs/Learn_Log.txt", rollingInterval: RollingInterval.Day)
-    .MinimumLevel.Warning()
-    .CreateLogger();
-
-builder.Logging.ClearProviders();
-builder.Logging.AddSerilog(logger);
-
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 
