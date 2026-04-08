@@ -10,5 +10,6 @@ namespace Learn.API.Data {
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<ErrorLog> ErrorLogs { get; set; }
     }
 }

@@ -1,16 +1,17 @@
+using Learn.API.Data;
+using Learn.API.Mappings;
+using Learn.API.Middlewares;
+using Learn.API.Repositories;
+using Learn.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Learn.API.Data;
-using Learn.API.Mappings;
-using Learn.API.Repositories;
-using System.Text;
-using Microsoft.OpenApi.Models;
-using System.Net.NetworkInformation;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Serilog;
-using Learn.API.Middlewares;
+using System.Net.NetworkInformation;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -92,6 +93,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
             Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     });
 
+// Register logging service
+builder.Services.AddScoped<IErrorLogService, ErrorLogService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -100,7 +104,7 @@ if (app.Environment.IsDevelopment()) {
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<ExceptionHandlerMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
